@@ -1,5 +1,7 @@
 # XMU-Template
 
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+
 厦门大学本科毕业论文 LaTeX 模版和答辩幻灯片 LaTeX 模版。
 
 毕业论文模版基于厦门大学图书馆 i 学堂 LaTeX 讲座中提供的硕博毕业论文模版改编而来，根据《厦门大学本科毕业论文（设计）规范》封装了大量格式设置等内容，使用时无需考虑各种格式指令，只需填充作者信息、摘要、关键词、章节标题、章节内容、附录、参考文献、致谢等内容即可。[模版效果可点击此处查看](https://github.com/F5Soft/xmu-template/blob/main/example.pdf)。答辩幻灯片模版则全部自制。
