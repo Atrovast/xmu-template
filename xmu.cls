@@ -30,7 +30,7 @@
 \RequirePackage{array}
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
-\RequirePackage{mathptmx}
+% \RequirePackage{mathptmx}
 \RequirePackage{bm}
 % 绘图
 \RequirePackage{pgfplots}
@@ -118,15 +118,18 @@
         }{
             \bf\songti\zihao{-2} 本\quad 科\quad 毕\quad 业\quad 设\quad 计
         }
-        \ifthenelse{\isundefined{\xmu@minor}}{}{
+        \ifthenelse{\isundefined{\xmu@minor}}{
             \vskip 1ex
-            \bf\songti\zihao{3} （辅\quad 修）
+            \bf\songti\zihao{3} （主修专业）
+        }{
+            \vskip 1ex
+            \bf\songti\zihao{3} （辅修专业）
         }
-        \vskip 2em
+        \vskip 1.5em
         \sf\zihao{2}\mdseries\xmu@title
         \vskip 1ex
         \bf\zihao{3}\xmu@entitle
-        \vskip 2em
+        \vskip 1.5em
         \rm\zihao{4}\mdseries
         \renewcommand\arraystretch{1.2}
         \begin{tabular}{rl}
@@ -145,7 +148,21 @@
     \end{center}
     \clearpage
     \ifthenelse{\isundefined{\xmu@print}}{}{\cleardoublepage}
+    
+    
+    \thispagestyle{plain}
+    % 定义目录前的页码格式为罗马字母
+    \pagenumbering{Roman}
+    \begin{commitment}        
+    \end{commitment}
+    % 正文字号
+    \zihao{-4}
+    \clearpage
+    
+    % \ifthenelse{\isundefined{\xmu@print}}{}{\cleardoublepage}
+}
 
+\newenvironment{commitment}{
     % 诚信承诺书
     \pagestyle{empty}
     \vspace*{1em}
@@ -169,19 +186,41 @@
         \hfill 年\qquad 月\qquad 日
         \par
     }
-    \clearpage
-    \ifthenelse{\isundefined{\xmu@print}}{}{\cleardoublepage}
+    \def\xmu@inabstract{true}
+}
 
-    % 定义目录前的页码格式为罗马字母
-    \pagenumbering{Roman}
-    % 正文字号
-    \zihao{-4}
+%%%%%%%% 致谢 %%%%%%%%
+
+\newenvironment{acknowledgement}{
+    \let\xmu@inabstract\relax
+    \chapter*{致\quad\; 谢}
+    \pagestyle{fancy}
+    \fancyhf{}
+    \ifthenelse{\isundefined{\xmu@entoc}}{
+        % 如果致谢在目录前，则只设置页脚
+        \renewcommand{\headrulewidth}{0pt}
+        \fancyfoot[C]{\rm\zihao{-5}\thepage}
+    }{
+        % 如果致谢在目录后，设置页眉、页脚，并添加索引到目录
+        \renewcommand{\headrulewidth}{0.4pt}
+        \fancyhead[OC]{\rm\zihao{-5}致\quad\; 谢}
+        \fancyhead[EC]{\rm\zihao{-5}\xmu@title}
+        \fancyfoot[C]{\rm\zihao{-5}\thepage}
+        \addcontentsline{toc}{chapter}{致谢}
+        \addcontentsline{entoc}{chapter}{Acknowledgements}
+    }
+    \vspace{1em}
+}{
+    \par
+    % \def\xmu@inabstract{true}
+    \clearpage
 }
 
 %%%%%%%% 摘要 %%%%%%%%
 
 % 中文摘要
 \newenvironment{abstract}{
+    \let\xmu@inabstract\relax
     \chapter*{摘\quad\; 要}
     \pagestyle{fancy}
     \fancyhf{}
@@ -194,7 +233,7 @@
     \vspace{1em}
     \noindent
     {\sf\zihao{-4}关键词：}\xmu@keywords
-    \def\xmu@inabstract{true}
+    
     \clearpage
 }
 
@@ -214,7 +253,12 @@
     \noindent
     {\bf\zihao{-4}Key Words: }\xmu@enkeywords
     \clearpage
-    \ifthenelse{\isundefined{\xmu@print}}{}{\cleardoublepage}
+    \ifthenelse{\isundefined{\xmu@print}}{}{
+        \null
+        \thispagestyle{empty}
+        \addtocounter{page}{-1}
+        \newpage
+    }%*****%
 }
 
 %%%%%%%% 目录 %%%%%%%%
@@ -343,8 +387,16 @@
 \renewcommand{\chapter}{
     \clearpage
     \ifthenelse{\isundefined{\xmu@inabstract}}{
-        \ifthenelse{\isundefined{\xmu@print}}{}{\cleardoublepage}
-    }{}
+        \ifthenelse{\isundefined{\xmu@print}}{}{\thispagestyle{fancy}\cleardoublepage}
+    }{
+        \ifthenelse{\isundefined{\xmu@print}}{}{
+        % \cleardoublepage
+        \null
+        \thispagestyle{empty}
+        \addtocounter{page}{-1}
+        \newpage
+        } %*****%
+    }
     \pagestyle{fancy}
     \fancyhf{}
     \renewcommand{\headrulewidth}{0.4pt}
@@ -365,8 +417,8 @@
 \renewcommand{\theequation}{\thechapter-\arabic{equation}}
 % 图表字体
 \DeclareCaptionFont{simsun5bf}{\bf\songti\zihao{5}}
-\captionsetup[figure]{font=simsun5bf}
-\captionsetup[table]{position=top,belowskip=2ex,font=simsun5bf}
+\captionsetup[figure]{font=simsun5bf,labelsep=quad}
+\captionsetup[table]{position=top,belowskip=2ex,font=simsun5bf,labelsep=quad}
 \AtBeginEnvironment{figure}{\zihao{5}}
 \AtBeginEnvironment{table}{\zihao{5}}
 % 代码、算法字体
@@ -393,8 +445,24 @@
 
 %%%%%%%% 参考文献 %%%%%%%%
 
+% \newenvironment{reference}{
+%     \ifthenelse{\isundefined{\xmu@print}}{}{\cleardoublepage}
+% }{
+%     \pagestyle{fancy}
+%     \fancyhf{}
+%     \renewcommand{\headrulewidth}{0.4pt}
+%     \fancyhead[OC]{\rm\zihao{-5}参考文献}
+%     \fancyhead[EC]{\rm\zihao{-5}\xmu@title}
+%     \fancyfoot[C]{\rm\zihao{-5}\thepage}
+%     \addcontentsline{toc}{chapter}{参考文献}
+%     \addcontentsline{entoc}{chapter}{References}
+%     \clearpage
+% }
 \newenvironment{reference}{
-    \ifthenelse{\isundefined{\xmu@print}}{}{\cleardoublepage}
+    \ifthenelse{\isundefined{\xmu@print}}{\clearpage}{\cleardoublepage}
+    \phantomsection
+    \addcontentsline{toc}{chapter}{参考文献}
+    \addcontentsline{entoc}{chapter}{References}
 }{
     \pagestyle{fancy}
     \fancyhf{}
@@ -402,9 +470,6 @@
     \fancyhead[OC]{\rm\zihao{-5}参考文献}
     \fancyhead[EC]{\rm\zihao{-5}\xmu@title}
     \fancyfoot[C]{\rm\zihao{-5}\thepage}
-    \addcontentsline{toc}{chapter}{参考文献}
-    \addcontentsline{entoc}{chapter}{References}
-    \clearpage
 }
 
 \bibliographystyle{gbt7714-2005.bst}  % 参考文献格式 GB/T 7714-2005
@@ -445,29 +510,5 @@
     \clearpage
 }
 
-%%%%%%%% 致谢 %%%%%%%%
-
-\newenvironment{acknowledgement}{
-    \chapter*{致\quad\; 谢}
-    \pagestyle{fancy}
-    \fancyhf{}
-    \ifthenelse{\isundefined{\xmu@entoc}}{
-        % 如果致谢在目录前，则只设置页脚
-        \renewcommand{\headrulewidth}{0pt}
-        \fancyfoot[C]{\rm\zihao{-5}\thepage}
-    }{
-        % 如果致谢在目录后，设置页眉、页脚，并添加索引到目录
-        \renewcommand{\headrulewidth}{0.4pt}
-        \fancyhead[OC]{\rm\zihao{-5}致\quad\; 谢}
-        \fancyhead[EC]{\rm\zihao{-5}\xmu@title}
-        \fancyfoot[C]{\rm\zihao{-5}\thepage}
-        \addcontentsline{toc}{chapter}{致谢}
-        \addcontentsline{entoc}{chapter}{Acknowledgements}
-    }
-    \vspace{1em}
-}{
-    \par
-    \clearpage
-}
 
 \endinput

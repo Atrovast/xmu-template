@@ -1,5 +1,22 @@
 # XMU-Template
 
+### revised
+- 公式使用LaTeX默认公式字体而非Roman
+- 封面改了间距以默认适应2行标题（后续可能改为动态）
+- 加了主修专业的标记
+- 正文前的空页与页码
+    + 单数页摘要会多空白页
+    + 承诺书标了页码（但似乎大了一号）
+    + 致谢的作用域更改
+    + 非打印版同样不会有空页
+- 正文空白页加了页眉（是否需要待核实）
+- 图表的间隔符由LaTeX默认的冒号改为空格（quad）
+- 参考文献目录页码修改
+
+### TBD
+- 仅校内老师指导是否需要“校内”二字
+- 图片左下角注明来源（觉得写的格式不美观就没有加；通过overpic实现）
+
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 
 厦门大学本科毕业论文 LaTeX 模版和答辩幻灯片 LaTeX 模版。
