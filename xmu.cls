@@ -94,6 +94,32 @@
 % 默认行距
 \renewcommand{\baselinestretch}{1.5}
 
+
+\newcounter{phantompagecount}
+\setcounter{phantompagecount}{0}
+% 摘要等双页空白设置
+\newcommand{\prepagecleardouble}{
+    % \cleardoublepage  %% 最简单方法，但下面是不计算页码的cleardoublepage
+    \newcount\realpage
+    \realpage=\value{page}
+    \advance\realpage by \value{phantompagecount}
+  \ifodd\realpage
+    % 如果实际页码是奇数，不需要插入空白页
+  \else
+    % 如果实际页码是偶数，需要插入空白页
+    \begingroup
+        \null
+        \thispagestyle{empty}
+        \addtocounter{page}{-1}
+        \newpage  % 空页
+        \stepcounter{phantompagecount}
+    \endgroup
+  \fi
+}
+
+% 正文双页空白设置
+\newcommand{\mainpagecleardouble}{\thispagestyle{fancy}\cleardoublepage}
+
 %%%%%%%% 封面 %%%%%%%%
 
 \renewcommand{\maketitle}{
@@ -149,12 +175,18 @@
     \clearpage
     \ifthenelse{\isundefined{\xmu@print}}{}{\cleardoublepage}
     
-    
-    \thispagestyle{plain}
     % 定义目录前的页码格式为罗马字母
     \pagenumbering{Roman}
+
+    \thispagestyle{fancy}
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \fancyfoot[C]{\rm\zihao{-5}\thepage}
+
+    % 诚信承诺书
     \begin{commitment}        
     \end{commitment}
+
     % 正文字号
     \zihao{-4}
     \clearpage
@@ -162,9 +194,9 @@
     % \ifthenelse{\isundefined{\xmu@print}}{}{\cleardoublepage}
 }
 
+%%%%%% 诚信承诺书 %%%%%%
 \newenvironment{commitment}{
-    % 诚信承诺书
-    \pagestyle{empty}
+    % \pagestyle{empty}
     \vspace*{1em}
     \begin{center}
         \sf\zihao{-2}厦门大学本科学位论文诚信承诺书
@@ -254,11 +286,8 @@
     {\bf\zihao{-4}Key Words: }\xmu@enkeywords
     \clearpage
     \ifthenelse{\isundefined{\xmu@print}}{}{
-        \null
-        \thispagestyle{empty}
-        \addtocounter{page}{-1}
-        \newpage
-    }%*****%
+        \prepagecleardouble
+    }
 }
 
 %%%%%%%% 目录 %%%%%%%%
@@ -316,6 +345,7 @@
 
     % 定义目录后的页码格式为阿拉伯数字
     \pagenumbering{arabic}
+    \setcounter{phantompagecount}{0}
 }
 
 % 定义英文目录相关指令
@@ -387,15 +417,12 @@
 \renewcommand{\chapter}{
     \clearpage
     \ifthenelse{\isundefined{\xmu@inabstract}}{
-        \ifthenelse{\isundefined{\xmu@print}}{}{\thispagestyle{fancy}\cleardoublepage}
+        \ifthenelse{\isundefined{\xmu@print}}{}{\mainpagecleardouble}
+        % 摘要外打印版的空白页加页眉
     }{
         \ifthenelse{\isundefined{\xmu@print}}{}{
-        % \cleardoublepage
-        \null
-        \thispagestyle{empty}
-        \addtocounter{page}{-1}
-        \newpage
-        } %*****%
+        \prepagecleardouble
+        }
     }
     \pagestyle{fancy}
     \fancyhf{}
@@ -459,7 +486,7 @@
 %     \clearpage
 % }
 \newenvironment{reference}{
-    \ifthenelse{\isundefined{\xmu@print}}{\clearpage}{\cleardoublepage}
+    % \ifthenelse{\isundefined{\xmu@print}}{}{\mainpagecleardouble}
     \phantomsection
     \addcontentsline{toc}{chapter}{参考文献}
     \addcontentsline{entoc}{chapter}{References}

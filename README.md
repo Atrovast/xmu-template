@@ -1,43 +1,52 @@
 # XMU-Template
 
-### revised
-- 公式使用LaTeX默认公式字体而非Roman
-- 封面改了间距以默认适应2行标题（后续可能改为动态）
-- 加了主修专业的标记
-- 正文前的空页与页码
-    + 单数页摘要会多空白页
-    + 承诺书标了页码（但似乎大了一号）
-    + 致谢的作用域更改
-    + 非打印版同样不会有空页
-- 正文空白页加了页眉（是否需要待核实）
-- 图表的间隔符由LaTeX默认的冒号改为空格（quad）
-- 参考文献目录页码修改
-
-### TBD
-- 仅校内老师指导是否需要“校内”二字
-- 图片左下角注明来源（觉得写的格式不美观就没有加；通过overpic实现）
-
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 
+基于[F5Soft的模板](https://github.com/F5Soft/xmu-template)对论文的格式进行了部分修改。
+
+### 相较原模板的修改
+- 公式使用LaTeX默认公式字体而非Roman
+- 封面间距修改以**默认适应2行标题**
+- 封面加了“（主修专业）”的标记
+- 正文前的空页与页码
+    + 单数页的摘要等会补充空白页
+    + 承诺书添加页码
+    + 致谢的位置更改
+- 正文空白页加了页眉（是否需要待核实）
+- 图表的间隔符由LaTeX默认的冒号改为空格（quad）
+- 参考文献目录页码改正
+
+### To Be Developed
+- 图片左下角注明来源（可以通过overpic实现，但感觉不太美观）
+- 封面间距根据标题单双行动态修改
+- 仅校内老师指导是否需要“校内”二字
+
+### 关于页码
+
+在打印版中，章节末尾会补齐至双页格式。前言部分的空白页不含页眉页脚，并且不计算页码；而正文部分的空页则带有页眉和页脚。因此，是否选择打印版会影响正文部分的页码计算，而前言部分只是简单地将空白页删除。
+
+关于空白页的页码格式以及电子版提交时页码是否需要与打印版保持一致，请咨询所在学院的老师以确认要求。
+
+## Original README
 厦门大学本科毕业论文 LaTeX 模版和答辩幻灯片 LaTeX 模版。
 
 毕业论文模版基于厦门大学图书馆 i 学堂 LaTeX 讲座中提供的硕博毕业论文模版改编而来，根据《厦门大学本科毕业论文（设计）规范》封装了大量格式设置等内容，使用时无需考虑各种格式指令，只需填充作者信息、摘要、关键词、章节标题、章节内容、附录、参考文献、致谢等内容即可。[模版效果可点击此处查看](https://github.com/F5Soft/xmu-template/blob/main/example.pdf)。答辩幻灯片模版则全部自制。
 
 毕业论文模版效果：
 
-![](https://f5soft.site/zh/labs/2022/0416.assets/cover.webp)
+![](https://f5soft.site/ideas/2022/0416/cover.webp)
 
-![](https://f5soft.site/zh/labs/2022/0416.assets/collection.webp)
+![](https://f5soft.site/ideas/2022/0416/collection.webp)
 
 毕业答辩幻灯片模版效果：
 
-![](https://f5soft.site/zh/labs/2022/0510.assets/light.webp)
+![](https://f5soft.site/ideas/2022/0416/light.webp)
 
-![](https://f5soft.site/zh/labs/2022/0510.assets/blue.webp)
+![](https://f5soft.site/ideas/2022/0416/blue.webp)
 
-![](https://f5soft.site/zh/labs/2022/0510.assets/orange.webp)
+![](https://f5soft.site/ideas/2022/0416/orange.webp)
 
-![](https://f5soft.site/zh/labs/2022/0510.assets/pink.webp)
+![](https://f5soft.site/ideas/2022/0416/pink.webp)
 
 毕业论文模版除了主修毕业论文外，还支持辅修版本和毕业设计版本。详细使用示例可查看 example.tex 文件。
 
