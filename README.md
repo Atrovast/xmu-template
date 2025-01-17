@@ -2,7 +2,7 @@
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 
-基于[F5Soft的模板](https://github.com/F5Soft/xmu-template)对论文的格式进行了部分修改。
+基于[F5Soft的模板](https://github.com/F5Soft/xmu-template)对论文的格式进行了部分修改。[下载](https://github.com/Atrovast/xmu-template/archive/refs/tags/v0.2.zip)
 
 ### 相较原模板的修改
 - 公式使用LaTeX默认公式字体而非Roman
